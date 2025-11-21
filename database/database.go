@@ -19,7 +19,9 @@ func ConnectDB() {
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
 		dbUser, dbPass, dbHost, dbPort, dbName,
+		
 	)
+	
 
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
@@ -27,7 +29,7 @@ func ConnectDB() {
 		panic("Cant Connect to Database")
 	}
 
-	database.AutoMigrate(&models.Product{}, &models.Supplier{})
+	database.AutoMigrate(&models.Supplier{}, &models.Product{})
 
 	DB = database
 }
