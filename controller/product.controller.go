@@ -31,7 +31,7 @@ func CreateProduct(c *gin.Context) {
 func GetProduct(c *gin.Context) {
 	var products []models.Product
 
-	database.DB.Find(&products)
+	database.DB.Preload("Supplier").Find(&products)
 
 	c.JSON(http.StatusOK, gin.H{"data": products})
 }

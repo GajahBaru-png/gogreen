@@ -17,10 +17,18 @@ func main() {
 	}
 	r := gin.Default()
 
+	// products router
 	r.POST("/products", controller.CreateProduct)
 	r.GET("/products", controller.GetProduct)
 	r.GET("products/:id", controller.FindProduct)
 	r.DELETE("/products/:id", controller.DeleteProduct)
+
+	// suppliers router
+	r.POST("/suppliers", controller.CreateSupp)
+	r.GET("/suppliers", controller.GetSupp)
+	r.GET("/suppliers/:id", controller.FindSupp)
+	r.DELETE("/suppliers/:id", controller.DeleteSupp)
+
 	database.ConnectDB()
 
 	r.Run(":8000")

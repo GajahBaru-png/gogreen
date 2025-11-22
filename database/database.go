@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"os"
+
 	"github.com/GajahBaru-png/gogreen/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -19,14 +20,12 @@ func ConnectDB() {
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
 		dbUser, dbPass, dbHost, dbPort, dbName,
-		
 	)
-	
 
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		panic("Cant Connect to Database")
+		panic(err)
 	}
 
 	database.AutoMigrate(&models.Supplier{}, &models.Product{})
