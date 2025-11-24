@@ -1,0 +1,75 @@
+__Project ini adalah REST API sederhana untuk mengelola Products dan Suppliers, dibuat menggunakan:__
+1. Golang
+2. Gin Framework
+3. GORM
+4. MySQL
+5. Godotenv
+API ini menyediakan fitur CRUD lengkap (Create, Read, Update, Delete) untuk dua entitas utama: Products dan Suppliers. 
+dibuat oleh **GajahBaru-png**
+
+__Struktur Endpoint__
+
+1.  Products Endpoint
+
+    | Method | Endpoint        | Deskripsi                         |
+    | ------ | --------------- | --------------------------------- |
+    | POST   | `/products`     | Menambahkan produk baru           |
+    | GET    | `/products`     | Mengambil semua data produk       |
+    | GET    | `/products/:id` | Mengambil data detail satu produk |
+    | PATCH  | `/products/:id` | Mengupdate data produk tertentu   |
+    | DELETE | `/products/:id` | Menghapus produk                  |
+
+2.  Suppliers Endpoint
+
+    | Method | Endpoint         | Deskripsi                      |
+    | ------ | ---------------- | ------------------------------ |
+    | POST   | `/suppliers`     | Menambahkan supplier baru      |
+    | GET    | `/suppliers`     | Mengambil semua supplier       |
+    | GET    | `/suppliers/:id` | Mengambil detail satu supplier |
+    | PATCH  | `/suppliers/:id` | Mengupdate data supplier       |
+    | DELETE | `/suppliers/:id` | Menghapus supplier             |
+
+__Cara Kerja__
+
+1.  Load file environment
+>   err := godotenv.Load()
+    Project Membaca konfigurasi dari .env
+
+2.  Insialisasi Gin
+>   r := gin.Default()
+    Memulai web server Gin dengan konfigurasi default (sudah ada logger dan recovery bawaan).
+
+3.  Menambah Endpoint / Routers
+>   r.METHOD := ("/endpoint", function)
+    Setiap route diarahkan ke function
+
+4.  Connect ke Database
+>   database.ConnectDB()
+    Menghubungkan aplikasi ke database MySQL memakai GORM
+
+5.  Menjalankan Server
+>   r.Run(":port")
+
+6.  Akses sesuai hostname dan port
+>   hostname:port
+
+__Pastikan File konfigurasi .env berisi :__
+
+DB_USER=
+DB_PASS=
+DB_HOST=
+DB_PORT=
+DB_NAME=
+
+
+__ORM Query Methods yang dipakai dan penjelasan :__
+1. Where()	         Query Builder	    Menambah kondisi Query
+2. First()	         Execution	        Mengambil 1 data
+3. Preload()	     Relation           Loader	Muat relasi
+4. Create()	         CRUD	            Insert data
+5. Updates()	     CRUD	            Update banyak field
+6. Delete()          CRUD               Menghapus data
+7. Model()           Query Builder      Mengatur model yang akan di Update
+8. ShouldBindJSON()  Request Binding    Mengambil JSON dari request Body dan memasukan ke struct
+9. Find()            CRUD               Mengambil semua data
+

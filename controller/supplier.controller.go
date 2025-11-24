@@ -53,3 +53,27 @@ func FindSupp(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": suppliers})
 }
+
+type SuppUpdate struct {
+	Name    string `json:"name"`
+	Address string `json:"address"`
+	Phone   string `json:"phone"`
+}
+
+func UpdateSupp(c *gin.Context) {
+	var usupp models.Supplier
+
+	if err := database.DB.Where("id = ?", c.Param("id")).First(&usupp).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"error": "Data tidak ditemukan"})
+		return
+	}
+
+	var input SuppUpdate
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	updatedSupp := models.Supplier{Name: input.Name, Address: input.Address, Phone: input.Phone}
+	database.DB.Model(&usupp).Updates(&updatedSupp)
+	c.JSON(http.StatusOK, gin.H{"data": usupp})
+}

@@ -22,12 +22,14 @@ func main() {
 	r.GET("/products", controller.GetProduct)
 	r.GET("products/:id", controller.FindProduct)
 	r.DELETE("/products/:id", controller.DeleteProduct)
+	r.PATCH("/products/:id", controller.UpdateProduct)
 
 	// suppliers router
 	r.POST("/suppliers", controller.CreateSupp)
 	r.GET("/suppliers", controller.GetSupp)
 	r.GET("/suppliers/:id", controller.FindSupp)
 	r.DELETE("/suppliers/:id", controller.DeleteSupp)
+	r.PATCH("/suppliers/:id", controller.UpdateSupp)
 
 	database.ConnectDB()
 
